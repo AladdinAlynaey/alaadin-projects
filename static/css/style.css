@@ -2044,22 +2044,22 @@ body {
 
 /* ─── Character Counter ─────────────────────────────────── */
 .char-counter {
-    float: right;
-    font-size: 0.75rem;
-    font-weight: 400;
+    display: block;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--text-muted);
-    margin-left: 8px;
+    margin-top: 4px;
+    transition: color 0.2s;
 }
 
-.char-counter.near-limit {
+.char-counter.at-limit {
     color: var(--danger);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 [dir="rtl"] .char-counter {
-    float: left;
-    margin-left: 0;
-    margin-right: 8px;
+    text-align: left;
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */

@@ -1461,9 +1461,11 @@
             function update() {
                 const len = ta.value.length;
                 counter.textContent = `${len} / ${DESC_MAX}`;
-                counter.classList.toggle('near-limit', len > 100);
+                counter.classList.toggle('at-limit', len >= DESC_MAX);
             }
             ta.addEventListener('input', update);
+            ta.addEventListener('keyup', update);
+            ta.addEventListener('paste', () => setTimeout(update, 0));
             update();
         }
         setupCharCounter('descEn', 'descEnCounter');
