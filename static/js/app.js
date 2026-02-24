@@ -379,6 +379,10 @@
             const linkLabel = isAr ? 'زيارة' : 'Visit';
             const linkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
+            const githubBtn = p.github_url
+                ? `<a class="project-card__github" href="${p.github_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="GitHub"><i class="fa-brands fa-github"></i></a>`
+                : '';
+
             return `
                 <div class="project-card" data-id="${p.id}">
                     <div class="project-card__image-wrap">
@@ -394,9 +398,12 @@
                         <p class="project-card__desc">${escapeHtml(desc || '')}</p>
                         <div class="project-card__footer">
                             <span class="project-card__date">${dateStr}</span>
-                            <button class="project-card__link" onclick="event.stopPropagation(); window.hubOpenProject('${p.id}')" aria-label="${linkLabel}">
-                                ${linkLabel} ${linkIcon}
-                            </button>
+                            <div class="project-card__actions">
+                                ${githubBtn}
+                                <button class="project-card__link" onclick="event.stopPropagation(); window.hubOpenProject('${p.id}')" aria-label="${linkLabel}">
+                                    ${linkLabel} ${linkIcon}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -738,6 +745,7 @@
                 formData.append('description_en', document.getElementById('descEn').value);
                 formData.append('description_ar', document.getElementById('descAr').value);
                 formData.append('url', document.getElementById('projectUrl').value);
+                formData.append('github_url', document.getElementById('projectGithubUrl').value);
                 formData.append('category', document.getElementById('projectCategory').value);
                 formData.append('is_private', document.getElementById('isPrivate').checked);
                 formData.append('password', document.getElementById('projectPassword').value);
@@ -798,6 +806,7 @@
             document.getElementById('descEn').value = project.description_en || '';
             document.getElementById('descAr').value = project.description_ar || '';
             document.getElementById('projectUrl').value = project.url || '';
+            document.getElementById('projectGithubUrl').value = project.github_url || '';
             document.getElementById('projectCategory').value = project.category || 'other';
             document.getElementById('isPrivate').checked = project.is_private || false;
             document.getElementById('projectPassword').value = project.password || '';

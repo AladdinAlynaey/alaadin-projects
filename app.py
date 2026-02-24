@@ -193,6 +193,7 @@ def create_project():
     description_en = request.form.get('description_en', '').strip()
     description_ar = request.form.get('description_ar', '').strip()
     url = request.form.get('url', '').strip()
+    github_url = request.form.get('github_url', '').strip()
     category = request.form.get('category', 'other').strip()
     is_private = request.form.get('is_private', 'false').lower() == 'true'
     password = request.form.get('password', '').strip()
@@ -219,6 +220,7 @@ def create_project():
         'description_en': description_en,
         'description_ar': description_ar,
         'url': url,
+        'github_url': github_url,
         'image': image_path,
         'category': category,
         'is_private': is_private,
@@ -253,6 +255,7 @@ def update_project(project_id):
     project['description_en'] = request.form.get('description_en', project['description_en']).strip()
     project['description_ar'] = request.form.get('description_ar', project['description_ar']).strip()
     project['url'] = request.form.get('url', project['url']).strip()
+    project['github_url'] = request.form.get('github_url', project.get('github_url', '')).strip()
     project['category'] = request.form.get('category', project['category']).strip()
 
     is_private = request.form.get('is_private', str(project.get('is_private', False))).lower() == 'true'
