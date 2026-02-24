@@ -5,6 +5,7 @@ __pycache__/
 static/uploads/*
 !static/uploads/.gitkeep
 data/projects.json
+data/config.json
 .DS_Store
 *.swp
 *.swo

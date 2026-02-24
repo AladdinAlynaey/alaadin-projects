@@ -955,6 +955,7 @@
         initIconPicker();
         populateCategorySuggestions();
         initCategoryManagement();
+        initChangePassword();
         initDeleteModal();
 
         // Check if already logged in
@@ -1329,6 +1330,84 @@
         if (!state.categories.length) {
             grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-muted);">No categories defined</div>';
         }
+    }
+
+    // ─── Change Password ────────────────────────────────────
+
+    function initChangePassword() {
+        const settingsBtn = document.getElementById('adminSettingsBtn');
+        const modal = document.getElementById('changePasswordModal');
+        const closeBtn = document.getElementById('changePasswordClose');
+        const cancelBtn = document.getElementById('changePasswordCancel');
+        const saveBtn = document.getElementById('changePasswordSave');
+        const errorEl = document.getElementById('changePasswordError');
+        const successEl = document.getElementById('changePasswordSuccess');
+
+        if (!settingsBtn || !modal) return;
+
+        function resetForm() {
+            document.getElementById('currentPasswordInput').value = '';
+            document.getElementById('newPasswordInput').value = '';
+            document.getElementById('confirmPasswordInput').value = '';
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+        }
+
+        settingsBtn.addEventListener('click', () => {
+            resetForm();
+            openModal(modal);
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
+        if (cancelBtn) cancelBtn.addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
+
+        if (saveBtn) saveBtn.addEventListener('click', async () => {
+            const current = document.getElementById('currentPasswordInput').value;
+            const newPw = document.getElementById('newPasswordInput').value;
+            const confirm = document.getElementById('confirmPasswordInput').value;
+            const isAr = state.lang === 'ar';
+
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+
+            if (!current || !newPw) {
+                errorEl.textContent = isAr ? 'جميع الحقول مطلوبة' : 'All fields are required';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            if (newPw !== confirm) {
+                errorEl.textContent = isAr ? 'كلمات المرور غير متطابقة' : 'Passwords do not match';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            if (newPw.length < 4) {
+                errorEl.textContent = isAr ? 'كلمة المرور يجب أن تكون 4 أحرف على الأقل' : 'Password must be at least 4 characters';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ current_password: current, new_password: newPw })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    errorEl.textContent = data.error || 'Error';
+                    errorEl.style.display = 'block';
+                } else {
+                    successEl.style.display = 'block';
+                    setTimeout(() => closeModal(modal), 1500);
+                }
+            } catch (err) {
+                errorEl.textContent = 'Network error';
+                errorEl.style.display = 'block';
+            }
+        });
     }
 
     // ─── Project Form (Add/Edit) ────────────────────────────

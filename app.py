@@ -24,6 +24,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'project-hub-secret-key-change-me'
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'projects.json')
 CATEGORIES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'categories.json')
+CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'config.json')
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
 MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
@@ -34,6 +35,27 @@ app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 file_lock = threading.Lock()
 
 # ─── Helpers ─────────────────────────────────────────────────────
+
+def load_config():
+    """Load config from JSON file."""
+    try:
+        with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def save_config(config):
+    """Save config to JSON file."""
+    os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+    with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
+        json.dump(config, f, ensure_ascii=False, indent=2)
+
+
+def get_admin_password():
+    """Get admin password (config.json overrides env var)."""
+    config = load_config()
+    return config.get('admin_password', ADMIN_PASSWORD)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -244,7 +266,7 @@ def admin_login():
     data = request.get_json()
     password = data.get('password', '')
 
-    if password == ADMIN_PASSWORD:
+    if password == get_admin_password():
         session['is_admin'] = True
         return jsonify({'success': True})
     else:
@@ -255,6 +277,26 @@ def admin_login():
 def admin_logout():
     """Admin logout."""
     session.pop('is_admin', None)
+    return jsonify({'success': True})
+
+
+@app.route('/api/admin/change-password', methods=['POST'])
+@admin_required
+def change_password():
+    """Change admin password."""
+    data = request.get_json()
+    current_password = data.get('current_password', '')
+    new_password = data.get('new_password', '')
+
+    if current_password != get_admin_password():
+        return jsonify({'error': 'Current password is incorrect'}), 400
+
+    if len(new_password) < 4:
+        return jsonify({'error': 'Password must be at least 4 characters'}), 400
+
+    config = load_config()
+    config['admin_password'] = new_password
+    save_config(config)
     return jsonify({'success': True})
 
 
