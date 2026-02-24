@@ -84,6 +84,33 @@
                 </div>
             </div>
 
+            <!-- Sort Dropdown -->
+            <div class="custom-dropdown custom-dropdown--sort" id="sortDropdown">
+                <button class="custom-dropdown__trigger" id="sortTrigger" type="button">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                    <span id="sortLabel" data-en="Newest" data-ar="الأحدث">Newest</span>
+                    <i class="fa-solid fa-chevron-down custom-dropdown__arrow"></i>
+                </button>
+                <div class="custom-dropdown__menu" id="sortMenu">
+                    <div class="custom-dropdown__item active" data-value="newest">
+                        <i class="fa-solid fa-arrow-down-short-wide"></i>
+                        <span data-en="Newest First" data-ar="الأحدث أولاً">Newest First</span>
+                    </div>
+                    <div class="custom-dropdown__item" data-value="oldest">
+                        <i class="fa-solid fa-arrow-up-short-wide"></i>
+                        <span data-en="Oldest First" data-ar="الأقدم أولاً">Oldest First</span>
+                    </div>
+                    <div class="custom-dropdown__item" data-value="name-az">
+                        <i class="fa-solid fa-arrow-down-a-z"></i>
+                        <span data-en="Name A → Z" data-ar="الاسم أ → ي">Name A → Z</span>
+                    </div>
+                    <div class="custom-dropdown__item" data-value="name-za">
+                        <i class="fa-solid fa-arrow-up-z-a"></i>
+                        <span data-en="Name Z → A" data-ar="الاسم ي → أ">Name Z → A</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- View Toggle -->
             <div class="toolbar__views">
                 <button class="toolbar__view-btn active" id="viewGrid" title="Grid view">

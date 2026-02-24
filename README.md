@@ -29,10 +29,15 @@
 | 🎨 **Dual Themes** | Dark (glassmorphism) & Light mode — persisted in localStorage |
 | 🌍 **Bilingual (EN/AR)** | Full English + Arabic support with automatic RTL layout |
 | 🔍 **Smart Search** | Real-time fuzzy search across both languages |
-| 📂 **35+ Categories** | AI, ML, NLP, RAG, Cybersecurity, Data Engineering, and more — each with an FA icon |
-| 🖼️ **Card & List Views** | Toggle between grid and compact list layouts |
+| � **Sort Projects** | Sort by newest, oldest, name A→Z, or name Z→A |
+| �📂 **35+ Categories** | AI, ML, NLP, RAG, Cybersecurity, Data Engineering, and more — each with an FA icon |
+| � **Dynamic Categories** | Full CRUD category management from admin panel |
+| �🖼️ **Card & List Views** | Toggle between grid and compact list layouts |
 | 🔒 **Private Projects** | Password-protect sensitive projects with optional hints |
 | 🛡️ **Admin Panel** | Full CRUD dashboard with stats, image uploads, and privacy controls |
+| 🔑 **Change Password** | Change admin password from settings gear — persisted in config.json |
+| ⏳ **Upload Feedback** | Save button shows spinner during image upload |
+| ✏️ **Description Limit** | Live character countdown (120 max) on description fields |
 | 🌊 **Animated Wave** | Multi-layer SVG wave with smooth CSS animations |
 | 📦 **JSON Storage** | No database needed — all data in one JSON file |
 | 🎯 **Premium Design** | Micro-animations, gradients, hover effects, glassmorphism cards |
@@ -88,10 +93,12 @@ python app.py
 alaadin-projects/
 ├── app.py                     # Flask backend (API routes & CRUD logic)
 ├── data/
-│   └── projects.json          # JSON data storage
+│   ├── projects.json          # JSON data storage
+│   ├── categories.json        # Dynamic category definitions
+│   └── config.json            # Admin config (password, gitignored)
 ├── static/
 │   ├── css/style.css          # Themes, animations, RTL, responsive design
-│   ├── js/app.js              # Frontend logic (search, filters, dropdowns, admin)
+│   ├── js/app.js              # Frontend logic (search, sort, filters, admin)
 │   ├── imgs/favicon.png       # App icon
 │   └── uploads/               # Project image uploads
 ├── templates/
@@ -117,10 +124,14 @@ alaadin-projects/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/admin/login` | Login |
+| `POST` | `/api/admin/change-password` | Change admin password |
 | `GET` | `/api/admin/projects` | List all projects |
 | `POST` | `/api/admin/projects` | Create project |
 | `PUT` | `/api/admin/projects/:id` | Update project |
 | `DELETE` | `/api/admin/projects/:id` | Delete project |
+| `GET` | `/api/categories` | List all categories |
+| `POST` | `/api/admin/categories` | Add category |
+| `DELETE` | `/api/admin/categories/:key` | Delete category |
 
 ---
 

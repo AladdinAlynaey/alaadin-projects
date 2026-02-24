@@ -444,6 +444,7 @@
         isAdmin: false,
         editingProjectId: null,
         selectedCategory: 'all',
+        sortBy: 'newest',
     };
 
     const isAdminPage = document.body.classList.contains('admin-body');
@@ -561,6 +562,9 @@
         // Custom category dropdown
         initCategoryDropdown();
 
+        // Sort dropdown
+        initSortDropdown();
+
         // Password modal
         initPasswordModal();
 
@@ -578,6 +582,7 @@
         // Toggle open/close
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
+            document.getElementById('sortDropdown')?.classList.remove('open');
             dropdown.classList.toggle('open');
         });
 
@@ -605,6 +610,43 @@
             } else {
                 label.textContent = getCatLabel(state.selectedCategory);
             }
+
+            dropdown.classList.remove('open');
+            renderProjects(filterProjects());
+        });
+    }
+
+    // ─── Sort Dropdown ────────────────────────────────────
+    function initSortDropdown() {
+        const dropdown = document.getElementById('sortDropdown');
+        const trigger = document.getElementById('sortTrigger');
+        const menu = document.getElementById('sortMenu');
+        if (!dropdown || !trigger || !menu) return;
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // close category dropdown if open
+            document.getElementById('categoryDropdown')?.classList.remove('open');
+            dropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('open');
+        });
+        menu.addEventListener('click', (e) => e.stopPropagation());
+
+        menu.addEventListener('click', (e) => {
+            const item = e.target.closest('.custom-dropdown__item');
+            if (!item) return;
+
+            state.sortBy = item.dataset.value;
+            menu.querySelectorAll('.custom-dropdown__item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            // Update trigger label
+            const label = document.getElementById('sortLabel');
+            const span = item.querySelector('span');
+            if (label && span) label.textContent = span.textContent;
 
             dropdown.classList.remove('open');
             renderProjects(filterProjects());
@@ -687,7 +729,7 @@
         const search = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
         const category = state.selectedCategory || 'all';
 
-        return state.projects.filter(p => {
+        let results = state.projects.filter(p => {
             // Category filter
             if (category !== 'all' && p.category !== category) return false;
 
@@ -699,7 +741,6 @@
                     p.category, p.url
                 ].map(f => (f || '').toLowerCase());
 
-                // Split search into terms for smart matching
                 const terms = search.split(/\s+/);
                 return terms.every(term =>
                     fields.some(field => field.includes(term))
@@ -708,6 +749,34 @@
 
             return true;
         });
+
+        // Sort
+        const isAr = state.lang === 'ar';
+        switch (state.sortBy) {
+            case 'oldest':
+                results.sort((a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0));
+                break;
+            case 'name-az':
+                results.sort((a, b) => {
+                    const na = (isAr && a.name_ar ? a.name_ar : a.name_en || '').toLowerCase();
+                    const nb = (isAr && b.name_ar ? b.name_ar : b.name_en || '').toLowerCase();
+                    return na.localeCompare(nb);
+                });
+                break;
+            case 'name-za':
+                results.sort((a, b) => {
+                    const na = (isAr && a.name_ar ? a.name_ar : a.name_en || '').toLowerCase();
+                    const nb = (isAr && b.name_ar ? b.name_ar : b.name_en || '').toLowerCase();
+                    return nb.localeCompare(na);
+                });
+                break;
+            case 'newest':
+            default:
+                results.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+                break;
+        }
+
+        return results;
     }
 
     function renderProjects(projects) {
