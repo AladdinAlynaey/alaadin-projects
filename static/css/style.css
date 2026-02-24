@@ -660,15 +660,17 @@ body {
 
 /* ─── PROJECT CARD ────────────────────────────────────────── */
 .project-card {
-    position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 20px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
+    animation: cardIn 0.4s ease both;
     cursor: pointer;
-    backdrop-filter: blur(10px);
-    animation: cardIn 0.5s ease both;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .project-card:nth-child(1) {
@@ -812,6 +814,9 @@ body {
 
 .project-card__body {
     padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card__name {
@@ -831,12 +836,14 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 16px;
+    flex-grow: 1;
 }
 
 .project-card__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: auto;
 }
 
 .project-card__date {
@@ -1476,6 +1483,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .admin-stat-card:hover {
@@ -2032,6 +2040,26 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* ─── Character Counter ─────────────────────────────────── */
+.char-counter {
+    float: right;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 8px;
+}
+
+.char-counter.near-limit {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+[dir="rtl"] .char-counter {
+    float: left;
+    margin-left: 0;
+    margin-right: 8px;
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */

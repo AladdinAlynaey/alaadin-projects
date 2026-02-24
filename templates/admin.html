@@ -219,15 +219,23 @@
                     </div>
                     <!-- Desc EN -->
                     <div class="form-group form-group--full">
-                        <label data-en="Description (English)" data-ar="الوصف (إنجليزي)">Description (English)</label>
-                        <textarea id="descEn" rows="3" data-placeholder-en="Describe the project in English"
+                        <label data-en="Description (English)" data-ar="الوصف (إنجليزي)">
+                            Description (English)
+                            <span class="char-counter" id="descEnCounter">0 / 120</span>
+                        </label>
+                        <textarea id="descEn" rows="3" maxlength="120"
+                            data-placeholder-en="Describe the project in English"
                             data-placeholder-ar="صف المشروع بالإنجليزية"
                             placeholder="Describe the project in English"></textarea>
                     </div>
                     <!-- Desc AR -->
                     <div class="form-group form-group--full">
-                        <label data-en="Description (Arabic)" data-ar="الوصف (عربي)">Description (Arabic)</label>
-                        <textarea id="descAr" rows="3" dir="rtl" data-placeholder-en="Describe the project in Arabic"
+                        <label data-en="Description (Arabic)" data-ar="الوصف (عربي)">
+                            Description (Arabic)
+                            <span class="char-counter" id="descArCounter">0 / 120</span>
+                        </label>
+                        <textarea id="descAr" rows="3" maxlength="120" dir="rtl"
+                            data-placeholder-en="Describe the project in Arabic"
                             data-placeholder-ar="صف المشروع بالعربية" placeholder="صف المشروع بالعربية"></textarea>
                     </div>
                     <!-- URL -->
@@ -358,10 +366,13 @@
                 <input type="password" id="confirmPasswordInput" autocomplete="off">
             </div>
             <p class="form-error" id="changePasswordError" style="display:none;"></p>
-            <p class="form-success" id="changePasswordSuccess" style="display:none;" data-en="Password changed successfully!" data-ar="تم تغيير كلمة المرور بنجاح!">Password changed successfully!</p>
+            <p class="form-success" id="changePasswordSuccess" style="display:none;"
+                data-en="Password changed successfully!" data-ar="تم تغيير كلمة المرور بنجاح!">Password changed
+                successfully!</p>
 
             <div class="form-actions">
-                <button class="btn btn--ghost" id="changePasswordCancel" data-en="Cancel" data-ar="إلغاء">Cancel</button>
+                <button class="btn btn--ghost" id="changePasswordCancel" data-en="Cancel"
+                    data-ar="إلغاء">Cancel</button>
                 <button class="btn btn--accent" id="changePasswordSave" data-en="Save" data-ar="حفظ">Save</button>
             </div>
         </div>
