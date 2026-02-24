@@ -93,6 +93,346 @@
         other: { en: 'Other', ar: 'أخرى' },
     };
 
+    // ─── FA Icons Library (for icon picker) ────────────────
+    const FA_ICONS = [
+        // AI & Machine Learning
+        ['fa-solid fa-brain', 'brain ai ml intelligence think'],
+        ['fa-solid fa-robot', 'robot machine learning bot automation'],
+        ['fa-solid fa-network-wired', 'network deep learning neural'],
+        ['fa-solid fa-microchip', 'chip cpu processor iot hardware'],
+        ['fa-solid fa-memory', 'memory ram hardware'],
+        ['fa-solid fa-code-branch', 'code branch version git'],
+        ['fa-solid fa-diagram-project', 'diagram project workflow'],
+        ['fa-solid fa-sitemap', 'sitemap structure hierarchy'],
+        // Language & NLP
+        ['fa-solid fa-language', 'language nlp translate'],
+        ['fa-solid fa-spell-check', 'spell check text nlp'],
+        ['fa-solid fa-font', 'font text typography'],
+        ['fa-solid fa-quote-left', 'quote text speech'],
+        ['fa-solid fa-comments', 'comments chat conversation llm'],
+        ['fa-solid fa-comment-dots', 'comment chat message'],
+        ['fa-solid fa-message', 'message chat chatbot'],
+        // Vision & Eyes
+        ['fa-solid fa-eye', 'eye vision see view cv'],
+        ['fa-solid fa-camera', 'camera photo image vision'],
+        ['fa-solid fa-image', 'image photo picture'],
+        ['fa-solid fa-images', 'images photos gallery'],
+        ['fa-solid fa-panorama', 'panorama image wide'],
+        // Data & Database
+        ['fa-solid fa-database', 'database data storage sql'],
+        ['fa-solid fa-server', 'server hosting devops'],
+        ['fa-solid fa-hard-drive', 'hard drive storage disk'],
+        ['fa-solid fa-chart-line', 'chart line graph analytics data'],
+        ['fa-solid fa-chart-bar', 'chart bar graph analytics'],
+        ['fa-solid fa-chart-pie', 'chart pie analytics statistics'],
+        ['fa-solid fa-chart-area', 'chart area graph'],
+        ['fa-solid fa-chart-column', 'chart column bar'],
+        ['fa-solid fa-chart-simple', 'chart simple minimal'],
+        ['fa-solid fa-table', 'table data grid spreadsheet'],
+        ['fa-solid fa-table-cells', 'table cells data grid'],
+        ['fa-solid fa-filter', 'filter sort data'],
+        ['fa-solid fa-magnifying-glass-chart', 'search analytics data'],
+        // Arrows & Flow
+        ['fa-solid fa-arrows-spin', 'arrows spin etl process cycle'],
+        ['fa-solid fa-arrow-right-arrow-left', 'arrow exchange transfer'],
+        ['fa-solid fa-rotate', 'rotate refresh sync'],
+        ['fa-solid fa-shuffle', 'shuffle random mix'],
+        ['fa-solid fa-right-left', 'exchange swap transfer'],
+        // Web & Internet
+        ['fa-solid fa-globe', 'globe web world internet'],
+        ['fa-solid fa-earth-americas', 'earth globe americas world'],
+        ['fa-solid fa-earth-europe', 'earth globe europe world'],
+        ['fa-solid fa-wifi', 'wifi wireless internet'],
+        ['fa-solid fa-signal', 'signal wireless network'],
+        ['fa-solid fa-rss', 'rss feed blog'],
+        ['fa-solid fa-link', 'link chain url blockchain'],
+        ['fa-solid fa-unlink', 'unlink broken disconnect'],
+        // Mobile & Desktop
+        ['fa-solid fa-mobile-screen', 'mobile phone app'],
+        ['fa-solid fa-tablet-screen-button', 'tablet device mobile'],
+        ['fa-solid fa-laptop', 'laptop computer portable'],
+        ['fa-solid fa-desktop', 'desktop computer monitor screen'],
+        ['fa-solid fa-display', 'display screen monitor'],
+        ['fa-solid fa-tv', 'tv television screen'],
+        // Code & Development
+        ['fa-solid fa-code', 'code programming development'],
+        ['fa-solid fa-terminal', 'terminal console command cli'],
+        ['fa-solid fa-file-code', 'file code programming'],
+        ['fa-solid fa-bug', 'bug debug error testing'],
+        ['fa-solid fa-vial', 'vial test lab experiment'],
+        ['fa-solid fa-flask', 'flask lab science experiment'],
+        ['fa-solid fa-microscope', 'microscope science research'],
+        ['fa-solid fa-atom', 'atom science physics'],
+        ['fa-solid fa-dna', 'dna biology genetics science'],
+        // Security & Privacy
+        ['fa-solid fa-shield-halved', 'shield security protection cyber'],
+        ['fa-solid fa-shield', 'shield security defense'],
+        ['fa-solid fa-lock', 'lock security password private'],
+        ['fa-solid fa-unlock', 'unlock open access'],
+        ['fa-solid fa-key', 'key password security access auth'],
+        ['fa-solid fa-fingerprint', 'fingerprint biometric security identity'],
+        ['fa-solid fa-user-shield', 'user shield security protection'],
+        ['fa-solid fa-user-lock', 'user lock security private'],
+        ['fa-solid fa-virus', 'virus malware security threat'],
+        ['fa-solid fa-skull-crossbones', 'skull danger hack security'],
+        ['fa-solid fa-mask', 'mask privacy anonymous'],
+        // Cloud
+        ['fa-solid fa-cloud', 'cloud hosting saas'],
+        ['fa-solid fa-cloud-arrow-up', 'cloud upload deploy'],
+        ['fa-solid fa-cloud-arrow-down', 'cloud download'],
+        // Tools & Settings
+        ['fa-solid fa-wrench', 'wrench tool fix repair'],
+        ['fa-solid fa-screwdriver-wrench', 'screwdriver wrench tools fix'],
+        ['fa-solid fa-toolbox', 'toolbox tools utility kit'],
+        ['fa-solid fa-gear', 'gear settings config'],
+        ['fa-solid fa-gears', 'gears settings automation'],
+        ['fa-solid fa-sliders', 'sliders settings controls config'],
+        ['fa-solid fa-hammer', 'hammer build construction tool'],
+        // Files & Documents
+        ['fa-solid fa-file', 'file document'],
+        ['fa-solid fa-file-lines', 'file document text'],
+        ['fa-solid fa-file-pdf', 'file pdf document'],
+        ['fa-solid fa-file-word', 'file word document office'],
+        ['fa-solid fa-file-excel', 'file excel spreadsheet'],
+        ['fa-solid fa-file-csv', 'file csv data'],
+        ['fa-solid fa-file-zipper', 'file zip archive compress'],
+        ['fa-solid fa-file-import', 'file import upload'],
+        ['fa-solid fa-file-export', 'file export download'],
+        ['fa-solid fa-folder', 'folder directory'],
+        ['fa-solid fa-folder-open', 'folder open directory'],
+        ['fa-solid fa-copy', 'copy duplicate clipboard'],
+        ['fa-solid fa-paste', 'paste clipboard'],
+        // Media & Entertainment
+        ['fa-solid fa-photo-film', 'photo film media multimedia'],
+        ['fa-solid fa-film', 'film movie cinema video'],
+        ['fa-solid fa-video', 'video camera record'],
+        ['fa-solid fa-play', 'play media start video'],
+        ['fa-solid fa-headphones', 'headphones audio music listen'],
+        ['fa-solid fa-music', 'music audio sound'],
+        ['fa-solid fa-volume-high', 'volume audio sound speaker'],
+        ['fa-solid fa-microphone', 'microphone audio record voice'],
+        ['fa-solid fa-podcast', 'podcast audio show'],
+        ['fa-solid fa-radio', 'radio broadcast audio'],
+        ['fa-solid fa-guitar', 'guitar music instrument'],
+        ['fa-solid fa-drum', 'drum music instrument beat'],
+        // Math & Science
+        ['fa-solid fa-square-root-variable', 'math square root variable equation'],
+        ['fa-solid fa-calculator', 'calculator math compute'],
+        ['fa-solid fa-infinity', 'infinity math symbol'],
+        ['fa-solid fa-superscript', 'superscript math power'],
+        ['fa-solid fa-subscript', 'subscript math index'],
+        ['fa-solid fa-divide', 'divide math operation'],
+        ['fa-solid fa-plus', 'plus add math'],
+        ['fa-solid fa-minus', 'minus subtract math'],
+        ['fa-solid fa-percent', 'percent math statistics'],
+        // Education
+        ['fa-solid fa-graduation-cap', 'graduation cap education school degree'],
+        ['fa-solid fa-school', 'school education building'],
+        ['fa-solid fa-chalkboard', 'chalkboard school classroom'],
+        ['fa-solid fa-chalkboard-user', 'chalkboard teacher education'],
+        ['fa-solid fa-book', 'book reading education knowledge'],
+        ['fa-solid fa-book-open', 'book open reading rag'],
+        ['fa-solid fa-book-open-reader', 'book reader reading education'],
+        ['fa-solid fa-bookmark', 'bookmark save reading'],
+        ['fa-solid fa-pen', 'pen write draw design'],
+        ['fa-solid fa-pen-nib', 'pen nib write calligraphy'],
+        ['fa-solid fa-pencil', 'pencil write edit draw'],
+        ['fa-solid fa-highlighter', 'highlighter mark text'],
+        // Commerce & Finance
+        ['fa-solid fa-cart-shopping', 'cart shopping ecommerce buy'],
+        ['fa-solid fa-basket-shopping', 'basket shopping ecommerce'],
+        ['fa-solid fa-bag-shopping', 'bag shopping ecommerce'],
+        ['fa-solid fa-store', 'store shop ecommerce business'],
+        ['fa-solid fa-shop', 'shop store ecommerce business'],
+        ['fa-solid fa-coins', 'coins money finance currency'],
+        ['fa-solid fa-money-bill', 'money bill cash finance'],
+        ['fa-solid fa-credit-card', 'credit card payment finance'],
+        ['fa-solid fa-wallet', 'wallet money finance payment'],
+        ['fa-solid fa-piggy-bank', 'piggy bank savings finance'],
+        ['fa-solid fa-hand-holding-dollar', 'hand holding dollar finance donate'],
+        ['fa-solid fa-receipt', 'receipt invoice payment'],
+        ['fa-solid fa-cash-register', 'cash register payment pos'],
+        // Health & Medical
+        ['fa-solid fa-heart-pulse', 'heart pulse health medical'],
+        ['fa-solid fa-heart', 'heart love health favorite'],
+        ['fa-solid fa-hospital', 'hospital medical health building'],
+        ['fa-solid fa-stethoscope', 'stethoscope doctor medical'],
+        ['fa-solid fa-syringe', 'syringe medical injection'],
+        ['fa-solid fa-pills', 'pills medicine pharmacy'],
+        ['fa-solid fa-thermometer', 'thermometer temperature health'],
+        ['fa-solid fa-lungs', 'lungs body health respiratory'],
+        // Users & People
+        ['fa-solid fa-user', 'user person profile account'],
+        ['fa-solid fa-users', 'users people group team social'],
+        ['fa-solid fa-user-group', 'user group team people'],
+        ['fa-solid fa-user-plus', 'user plus add register'],
+        ['fa-solid fa-user-gear', 'user gear settings admin'],
+        ['fa-solid fa-user-tie', 'user tie business professional'],
+        ['fa-solid fa-people-group', 'people group team community'],
+        ['fa-solid fa-handshake', 'handshake partnership deal'],
+        // Gaming
+        ['fa-solid fa-gamepad', 'gamepad game controller play'],
+        ['fa-solid fa-dice', 'dice game random chance'],
+        ['fa-solid fa-chess', 'chess game strategy board'],
+        ['fa-solid fa-trophy', 'trophy award winner prize'],
+        ['fa-solid fa-medal', 'medal award achievement'],
+        ['fa-solid fa-ranking-star', 'ranking star leaderboard'],
+        ['fa-solid fa-puzzle-piece', 'puzzle piece extension addon'],
+        // Communication
+        ['fa-solid fa-envelope', 'envelope email mail message'],
+        ['fa-solid fa-paper-plane', 'paper plane send message'],
+        ['fa-solid fa-bell', 'bell notification alert'],
+        ['fa-solid fa-phone', 'phone call contact'],
+        ['fa-solid fa-calendar', 'calendar date schedule event'],
+        ['fa-solid fa-calendar-check', 'calendar check event done'],
+        ['fa-solid fa-clock', 'clock time schedule'],
+        ['fa-solid fa-stopwatch', 'stopwatch timer speed'],
+        // Navigation & Map
+        ['fa-solid fa-location-dot', 'location map pin gps'],
+        ['fa-solid fa-map', 'map location geography'],
+        ['fa-solid fa-compass', 'compass direction navigate'],
+        ['fa-solid fa-route', 'route path direction'],
+        // Transportation
+        ['fa-solid fa-car', 'car vehicle transport drive'],
+        ['fa-solid fa-truck', 'truck delivery transport'],
+        ['fa-solid fa-plane', 'plane flight travel transport'],
+        ['fa-solid fa-rocket', 'rocket launch startup space'],
+        ['fa-solid fa-satellite', 'satellite space communication'],
+        ['fa-solid fa-satellite-dish', 'satellite dish signal broadcast'],
+        ['fa-solid fa-ship', 'ship boat nautical maritime'],
+        // UI & Design
+        ['fa-solid fa-palette', 'palette color art design'],
+        ['fa-solid fa-paint-roller', 'paint roller design decoration'],
+        ['fa-solid fa-paintbrush', 'paintbrush art design draw'],
+        ['fa-solid fa-crop', 'crop image edit design'],
+        ['fa-solid fa-wand-magic-sparkles', 'wand magic sparkle effect'],
+        ['fa-solid fa-circle-half-stroke', 'circle half theme contrast'],
+        ['fa-solid fa-swatchbook', 'swatch color palette design'],
+        ['fa-solid fa-bezier-curve', 'bezier curve vector design'],
+        ['fa-solid fa-object-group', 'object group layout design'],
+        ['fa-solid fa-layer-group', 'layer group stack'],
+        ['fa-solid fa-shapes', 'shapes forms geometry other'],
+        ['fa-solid fa-icons', 'icons symbols collection'],
+        // Dashboard & Metrics
+        ['fa-solid fa-gauge-high', 'gauge dashboard speed metrics'],
+        ['fa-solid fa-gauge', 'gauge meter dashboard'],
+        ['fa-solid fa-tachograph-digital', 'tachograph digital speed'],
+        // Power & Energy
+        ['fa-solid fa-bolt', 'bolt lightning energy power speed'],
+        ['fa-solid fa-plug', 'plug electric power api connect'],
+        ['fa-solid fa-battery-full', 'battery power energy'],
+        ['fa-solid fa-solar-panel', 'solar panel energy green'],
+        ['fa-solid fa-fire', 'fire hot flame popular trending'],
+        ['fa-solid fa-snowflake', 'snowflake cold freeze winter'],
+        ['fa-solid fa-sun', 'sun light day weather'],
+        ['fa-solid fa-moon', 'moon night dark theme'],
+        ['fa-solid fa-star', 'star favorite rate rating'],
+        // Building & Construction
+        ['fa-solid fa-building', 'building office company business'],
+        ['fa-solid fa-house', 'house home building'],
+        ['fa-solid fa-industry', 'industry factory manufacturing'],
+        ['fa-solid fa-city', 'city buildings urban'],
+        ['fa-solid fa-warehouse', 'warehouse storage logistics'],
+        // Misc & Symbols
+        ['fa-solid fa-circle-info', 'info information help'],
+        ['fa-solid fa-circle-question', 'question help support faq'],
+        ['fa-solid fa-circle-check', 'check done success verified'],
+        ['fa-solid fa-circle-exclamation', 'exclamation warning alert'],
+        ['fa-solid fa-triangle-exclamation', 'triangle warning danger alert'],
+        ['fa-solid fa-flag', 'flag report mark country'],
+        ['fa-solid fa-tag', 'tag label category price'],
+        ['fa-solid fa-tags', 'tags labels categories'],
+        ['fa-solid fa-qrcode', 'qr code scan barcode'],
+        ['fa-solid fa-barcode', 'barcode scan product'],
+        ['fa-solid fa-hashtag', 'hashtag tag social media'],
+        ['fa-solid fa-at', 'at email contact'],
+        ['fa-solid fa-thumbs-up', 'thumbs up like positive'],
+        ['fa-solid fa-lightbulb', 'lightbulb idea innovation tip'],
+        ['fa-solid fa-list', 'list items todo'],
+        ['fa-solid fa-list-check', 'list check todo tasks'],
+        ['fa-solid fa-clipboard', 'clipboard copy paste notes'],
+        ['fa-solid fa-clipboard-check', 'clipboard check tasks done'],
+        ['fa-solid fa-note-sticky', 'note sticky memo'],
+        ['fa-solid fa-newspaper', 'newspaper news article media'],
+        ['fa-solid fa-box', 'box package shipping'],
+        ['fa-solid fa-boxes-stacked', 'boxes stacked inventory'],
+        ['fa-solid fa-cube', 'cube 3d object model'],
+        ['fa-solid fa-cubes', 'cubes blocks 3d models'],
+        ['fa-solid fa-print', 'print printer paper'],
+        ['fa-solid fa-expand', 'expand fullscreen maximize resize'],
+        ['fa-solid fa-minimize', 'minimize shrink window'],
+        ['fa-solid fa-download', 'download save get'],
+        ['fa-solid fa-upload', 'upload share send'],
+        ['fa-solid fa-share-nodes', 'share social distribute'],
+        ['fa-solid fa-share-from-square', 'share external open'],
+        ['fa-solid fa-magnifying-glass', 'magnifying glass search find'],
+        ['fa-solid fa-crosshairs', 'crosshairs target aim focus'],
+        ['fa-solid fa-bullseye', 'bullseye target goal aim'],
+        ['fa-solid fa-spider', 'spider web scraping crawl'],
+        ['fa-solid fa-life-ring', 'life ring help support rescue'],
+        ['fa-solid fa-anchor', 'anchor nautical web'],
+        ['fa-solid fa-leaf', 'leaf nature green eco environment'],
+        ['fa-solid fa-seedling', 'seedling plant grow nature'],
+        ['fa-solid fa-tree', 'tree nature forest environment'],
+        ['fa-solid fa-recycle', 'recycle environment green'],
+        ['fa-solid fa-paw', 'paw animal pet'],
+        ['fa-solid fa-horse', 'horse animal equestrian'],
+        ['fa-solid fa-kiwi-bird', 'kiwi bird animal nature'],
+        // Brands
+        ['fa-brands fa-github', 'github git code repository'],
+        ['fa-brands fa-python', 'python programming language'],
+        ['fa-brands fa-js', 'javascript js programming'],
+        ['fa-brands fa-react', 'react frontend framework'],
+        ['fa-brands fa-vuejs', 'vue vuejs frontend framework'],
+        ['fa-brands fa-angular', 'angular frontend framework'],
+        ['fa-brands fa-node-js', 'node nodejs backend javascript'],
+        ['fa-brands fa-docker', 'docker container devops'],
+        ['fa-brands fa-aws', 'aws amazon cloud'],
+        ['fa-brands fa-google', 'google search cloud'],
+        ['fa-brands fa-microsoft', 'microsoft azure windows'],
+        ['fa-brands fa-linux', 'linux os server opensource'],
+        ['fa-brands fa-apple', 'apple mac ios'],
+        ['fa-brands fa-android', 'android mobile google'],
+        ['fa-brands fa-windows', 'windows microsoft os'],
+        ['fa-brands fa-chrome', 'chrome browser google'],
+        ['fa-brands fa-firefox-browser', 'firefox browser mozilla'],
+        ['fa-brands fa-slack', 'slack communication team'],
+        ['fa-brands fa-discord', 'discord chat community gaming'],
+        ['fa-brands fa-telegram', 'telegram messenger chat'],
+        ['fa-brands fa-whatsapp', 'whatsapp messenger chat'],
+        ['fa-brands fa-youtube', 'youtube video streaming'],
+        ['fa-brands fa-twitter', 'twitter social media x'],
+        ['fa-brands fa-linkedin', 'linkedin professional social'],
+        ['fa-brands fa-instagram', 'instagram social photo'],
+        ['fa-brands fa-facebook', 'facebook social media'],
+        ['fa-brands fa-tiktok', 'tiktok social video short'],
+        ['fa-brands fa-wordpress', 'wordpress blog cms'],
+        ['fa-brands fa-shopify', 'shopify ecommerce store'],
+        ['fa-brands fa-stripe', 'stripe payment finance'],
+        ['fa-brands fa-paypal', 'paypal payment finance'],
+        ['fa-brands fa-bitcoin', 'bitcoin crypto blockchain'],
+        ['fa-brands fa-ethereum', 'ethereum crypto blockchain'],
+        ['fa-brands fa-figma', 'figma design ui ux'],
+        ['fa-brands fa-sketch', 'sketch design ui'],
+        ['fa-brands fa-sass', 'sass css styles'],
+        ['fa-brands fa-css3-alt', 'css css3 styles web'],
+        ['fa-brands fa-html5', 'html html5 web markup'],
+        ['fa-brands fa-bootstrap', 'bootstrap css framework'],
+        ['fa-brands fa-npm', 'npm package manager node'],
+        ['fa-brands fa-git-alt', 'git version control'],
+        ['fa-brands fa-stack-overflow', 'stackoverflow qa dev community'],
+        ['fa-brands fa-kaggle', 'kaggle data science competition'],
+        ['fa-brands fa-raspberry-pi', 'raspberry pi hardware iot'],
+        ['fa-brands fa-unity', 'unity game engine 3d'],
+        ['fa-brands fa-unreal-engine', 'unreal engine game 3d'],
+        ['fa-brands fa-swift', 'swift apple ios programming'],
+        ['fa-brands fa-java', 'java programming language'],
+        ['fa-brands fa-php', 'php web backend programming'],
+        ['fa-brands fa-rust', 'rust programming language systems'],
+        ['fa-brands fa-golang', 'go golang programming language'],
+        ['fa-brands fa-r-project', 'r statistics data science'],
+    ];
+
     // ─── State ─────────────────────────────────────────────
     const state = {
         lang: localStorage.getItem('hub-lang') || 'en',
@@ -368,9 +708,10 @@
             const catLabel = lb ? (isAr ? lb.ar : lb.en) : p.category;
             const dateStr = p.created_at ? new Date(p.created_at).toLocaleDateString(isAr ? 'ar' : 'en', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 
+            const fallbackIcon = p.project_icon || CATEGORY_ICONS[p.category] || 'fa-solid fa-shapes';
             const imageHtml = p.image
                 ? `<img src="/static/${p.image}" alt="${name}" class="project-card__image" loading="lazy">`
-                : `<div class="project-card__no-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`;
+                : `<div class="project-card__icon-display"><i class="${fallbackIcon}"></i></div>`;
 
             const lockHtml = p.is_private
                 ? `<div class="project-card__lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>`
@@ -590,6 +931,8 @@
 
         // Project form
         initProjectForm();
+        initIconPicker();
+        populateCategorySuggestions();
         initDeleteModal();
 
         // Check if already logged in
@@ -692,6 +1035,106 @@
         }).join('');
     }
 
+    // ─── Icon Picker ────────────────────────────────────────
+
+    let iconPickerCallback = null;
+
+    function initIconPicker() {
+        const modal = document.getElementById('iconPickerModal');
+        const closeBtn = document.getElementById('iconPickerClose');
+        const searchInput = document.getElementById('iconSearchInput');
+        const grid = document.getElementById('iconPickerGrid');
+        if (!modal || !grid) return;
+
+        // Render all icons initially
+        renderIconGrid('');
+
+        // Search filter
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                renderIconGrid(searchInput.value.trim().toLowerCase());
+            });
+        }
+
+        // Close modal
+        if (closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
+
+        // Click icon in grid
+        grid.addEventListener('click', (e) => {
+            const item = e.target.closest('.icon-picker-item');
+            if (!item) return;
+            const iconClass = item.dataset.icon;
+            if (iconPickerCallback) iconPickerCallback(iconClass);
+            closeModal(modal);
+        });
+
+        // Trigger button
+        const trigger = document.getElementById('projectIconTrigger');
+        if (trigger) {
+            trigger.addEventListener('click', () => {
+                const currentIcon = document.getElementById('projectIconValue').value;
+                iconPickerCallback = (iconClass) => {
+                    document.getElementById('projectIconValue').value = iconClass;
+                    const preview = document.getElementById('projectIconPreview');
+                    preview.className = iconClass;
+                    preview.nextElementSibling.textContent = iconClass.split(' ').pop().replace('fa-', '');
+                };
+                openIconPickerModal(currentIcon);
+            });
+        }
+    }
+
+    function renderIconGrid(search) {
+        const grid = document.getElementById('iconPickerGrid');
+        if (!grid) return;
+
+        const filtered = search
+            ? FA_ICONS.filter(([cls, tags]) => tags.includes(search) || cls.includes(search))
+            : FA_ICONS;
+
+        grid.innerHTML = filtered.map(([cls]) => {
+            return `<div class="icon-picker-item" data-icon="${cls}" title="${cls}"><i class="${cls}"></i></div>`;
+        }).join('');
+
+        if (!filtered.length) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">No icons found</div>';
+        }
+    }
+
+    function openIconPickerModal(currentIcon) {
+        const modal = document.getElementById('iconPickerModal');
+        const searchInput = document.getElementById('iconSearchInput');
+        if (searchInput) searchInput.value = '';
+        renderIconGrid('');
+
+        // Mark currently selected
+        if (currentIcon) {
+            setTimeout(() => {
+                const items = modal.querySelectorAll('.icon-picker-item');
+                items.forEach(item => {
+                    item.classList.toggle('selected', item.dataset.icon === currentIcon);
+                });
+            }, 50);
+        }
+
+        openModal(modal);
+        if (searchInput) setTimeout(() => searchInput.focus(), 100);
+    }
+
+    function populateCategorySuggestions() {
+        const datalist = document.getElementById('categorySuggestions');
+        if (!datalist) return;
+
+        // Populate from CATEGORY_LABELS
+        const isAr = state.lang === 'ar';
+        const options = Object.entries(CATEGORY_LABELS).map(([key, labels]) => {
+            const label = isAr ? labels.ar : labels.en;
+            return `<option value="${key}">${label}</option>`;
+        });
+        datalist.innerHTML = options.join('');
+    }
+
     // ─── Project Form (Add/Edit) ────────────────────────────
 
     function initProjectForm() {
@@ -747,6 +1190,7 @@
                 formData.append('url', document.getElementById('projectUrl').value);
                 formData.append('github_url', document.getElementById('projectGithubUrl').value);
                 formData.append('category', document.getElementById('projectCategory').value);
+                formData.append('project_icon', document.getElementById('projectIconValue').value);
                 formData.append('is_private', document.getElementById('isPrivate').checked);
                 formData.append('password', document.getElementById('projectPassword').value);
                 formData.append('password_hint', document.getElementById('projectPasswordHint').value);
@@ -793,6 +1237,14 @@
         document.getElementById('imagePlaceholder').style.display = 'flex';
         document.querySelectorAll('.privacy-fields').forEach(el => el.style.display = 'none');
 
+        // Reset icon picker
+        document.getElementById('projectIconValue').value = '';
+        const iconPreview = document.getElementById('projectIconPreview');
+        if (iconPreview) {
+            iconPreview.className = 'fa-solid fa-icons';
+            iconPreview.nextElementSibling.textContent = state.lang === 'ar' ? 'اختر أيقونة' : 'Choose Icon';
+        }
+
         if (project) {
             state.editingProjectId = project.id;
             title.textContent = state.lang === 'ar' ? 'تعديل المشروع' : 'Edit Project';
@@ -808,6 +1260,18 @@
             document.getElementById('projectUrl').value = project.url || '';
             document.getElementById('projectGithubUrl').value = project.github_url || '';
             document.getElementById('projectCategory').value = project.category || 'other';
+
+            // Pre-fill icon picker
+            const iconVal = project.project_icon || '';
+            document.getElementById('projectIconValue').value = iconVal;
+            const preview = document.getElementById('projectIconPreview');
+            if (iconVal) {
+                preview.className = iconVal;
+                preview.nextElementSibling.textContent = iconVal.split(' ').pop().replace('fa-', '');
+            } else {
+                preview.className = 'fa-solid fa-icons';
+                preview.nextElementSibling.textContent = state.lang === 'ar' ? 'اختر أيقونة' : 'Choose Icon';
+            }
             document.getElementById('isPrivate').checked = project.is_private || false;
             document.getElementById('projectPassword').value = project.password || '';
             document.getElementById('projectPasswordHint').value = project.password_hint || '';

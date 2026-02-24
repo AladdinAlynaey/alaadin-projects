@@ -195,6 +195,7 @@ def create_project():
     url = request.form.get('url', '').strip()
     github_url = request.form.get('github_url', '').strip()
     category = request.form.get('category', 'other').strip()
+    project_icon = request.form.get('project_icon', '').strip()
     is_private = request.form.get('is_private', 'false').lower() == 'true'
     password = request.form.get('password', '').strip()
     password_hint = request.form.get('password_hint', '').strip()
@@ -223,6 +224,7 @@ def create_project():
         'github_url': github_url,
         'image': image_path,
         'category': category,
+        'project_icon': project_icon,
         'is_private': is_private,
         'password': password if is_private else '',
         'password_hint': password_hint if is_private else '',
@@ -257,6 +259,7 @@ def update_project(project_id):
     project['url'] = request.form.get('url', project['url']).strip()
     project['github_url'] = request.form.get('github_url', project.get('github_url', '')).strip()
     project['category'] = request.form.get('category', project['category']).strip()
+    project['project_icon'] = request.form.get('project_icon', project.get('project_icon', '')).strip()
 
     is_private = request.form.get('is_private', str(project.get('is_private', False))).lower() == 'true'
     project['is_private'] = is_private

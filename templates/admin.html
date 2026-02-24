@@ -201,53 +201,21 @@
                     <!-- Category -->
                     <div class="form-group">
                         <label data-en="Category" data-ar="الفئة">Category</label>
-                        <select id="projectCategory">
-                            <option value="web" data-en="Web" data-ar="ويب">Web</option>
-                            <option value="mobile" data-en="Mobile" data-ar="جوال">Mobile</option>
-                            <option value="desktop" data-en="Desktop" data-ar="سطح المكتب">Desktop</option>
-                            <option value="ai" data-en="AI / ML" data-ar="ذكاء اصطناعي">AI / ML</option>
-                            <option value="ml" data-en="Machine Learning" data-ar="تعلم الآلة">Machine Learning</option>
-                            <option value="deeplearning" data-en="Deep Learning" data-ar="تعلم عميق">Deep Learning
-                            </option>
-                            <option value="nlp" data-en="NLP" data-ar="معالجة اللغة">NLP</option>
-                            <option value="cv" data-en="Computer Vision" data-ar="رؤية حاسوبية">Computer Vision</option>
-                            <option value="rag" data-en="RAG" data-ar="توليد معزز">RAG</option>
-                            <option value="llm" data-en="LLM" data-ar="نماذج لغوية">LLM</option>
-                            <option value="chatbot" data-en="Chatbot" data-ar="روبوت محادثة">Chatbot</option>
-                            <option value="data" data-en="Data Engineering" data-ar="هندسة بيانات">Data Engineering
-                            </option>
-                            <option value="datascience" data-en="Data Science" data-ar="علوم بيانات">Data Science
-                            </option>
-                            <option value="analytics" data-en="Analytics" data-ar="تحليلات">Analytics</option>
-                            <option value="etl" data-en="ETL Pipeline" data-ar="خط بيانات">ETL Pipeline</option>
-                            <option value="scraping" data-en="Web Scraping" data-ar="استخراج بيانات">Web Scraping
-                            </option>
-                            <option value="automation" data-en="Automation" data-ar="أتمتة">Automation</option>
-                            <option value="cybersecurity" data-en="Cybersecurity" data-ar="أمن سيبراني">Cybersecurity
-                            </option>
-                            <option value="api" data-en="API" data-ar="واجهة برمجة">API</option>
-                            <option value="cloud" data-en="Cloud" data-ar="سحابة">Cloud</option>
-                            <option value="devops" data-en="DevOps" data-ar="ديف أوبس">DevOps</option>
-                            <option value="iot" data-en="IoT" data-ar="إنترنت الأشياء">IoT</option>
-                            <option value="blockchain" data-en="Blockchain" data-ar="بلوكتشين">Blockchain</option>
-                            <option value="game" data-en="Games" data-ar="ألعاب">Games</option>
-                            <option value="education" data-en="Education" data-ar="تعليم">Education</option>
-                            <option value="math" data-en="Mathematics" data-ar="رياضيات">Mathematics</option>
-                            <option value="podcast" data-en="Podcast" data-ar="بودكاست">Podcast</option>
-                            <option value="media" data-en="Media" data-ar="وسائط">Media</option>
-                            <option value="video" data-en="Video" data-ar="فيديو">Video</option>
-                            <option value="audio" data-en="Audio" data-ar="صوتيات">Audio</option>
-                            <option value="tool" data-en="Tools" data-ar="أدوات">Tools</option>
-                            <option value="utility" data-en="Utility" data-ar="خدمات">Utility</option>
-                            <option value="dashboard" data-en="Dashboard" data-ar="لوحة تحكم">Dashboard</option>
-                            <option value="ecommerce" data-en="E-Commerce" data-ar="تجارة إلكترونية">E-Commerce</option>
-                            <option value="finance" data-en="Finance" data-ar="مالية">Finance</option>
-                            <option value="health" data-en="Health" data-ar="صحة">Health</option>
-                            <option value="social" data-en="Social" data-ar="اجتماعي">Social</option>
-                            <option value="productivity" data-en="Productivity" data-ar="إنتاجية">Productivity</option>
-                            <option value="extension" data-en="Extension" data-ar="إضافة">Extension</option>
-                            <option value="other" data-en="Other" data-ar="أخرى">Other</option>
-                        </select>
+                        <input type="text" id="projectCategory" list="categorySuggestions"
+                            data-placeholder-en="e.g. AI, Web, Data..." data-placeholder-ar="مثال: ذكاء اصطناعي، ويب..."
+                            placeholder="e.g. AI, Web, Data..." autocomplete="off">
+                        <datalist id="categorySuggestions"></datalist>
+                    </div>
+                    <!-- Project Icon -->
+                    <div class="form-group">
+                        <label data-en="Project Icon" data-ar="أيقونة المشروع">Project Icon</label>
+                        <div class="icon-picker" id="projectIconPicker">
+                            <button type="button" class="icon-picker__trigger" id="projectIconTrigger">
+                                <i class="fa-solid fa-icons" id="projectIconPreview"></i>
+                                <span data-en="Choose Icon" data-ar="اختر أيقونة">Choose Icon</span>
+                            </button>
+                            <input type="hidden" id="projectIconValue" value="">
+                        </div>
                     </div>
                     <!-- Image -->
                     <div class="form-group form-group--full">
@@ -319,6 +287,20 @@
             <div class="form-actions">
                 <button class="btn btn--ghost" id="deleteCancelBtn" data-en="Cancel" data-ar="إلغاء">Cancel</button>
                 <button class="btn btn--danger" id="deleteConfirmBtn" data-en="Delete" data-ar="حذف">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ICON PICKER MODAL ═══ -->
+    <div class="modal-overlay" id="iconPickerModal">
+        <div class="modal modal--large">
+            <button class="modal__close" id="iconPickerClose">×</button>
+            <h2 class="modal__title" data-en="Choose an Icon" data-ar="اختر أيقونة">Choose an Icon</h2>
+            <div class="icon-picker-search">
+                <input type="text" id="iconSearchInput" placeholder="Search icons..." autocomplete="off">
+            </div>
+            <div class="icon-picker-grid" id="iconPickerGrid">
+                <!-- Icons populated by JS -->
             </div>
         </div>
     </div>
