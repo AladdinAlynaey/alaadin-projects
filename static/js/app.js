@@ -439,6 +439,8 @@
         theme: localStorage.getItem('hub-theme') || 'dark',
         view: localStorage.getItem('hub-view') || 'grid',
         projects: [],
+        categories: [],
+        catMap: {},
         isAdmin: false,
         editingProjectId: null,
         selectedCategory: 'all',
@@ -452,9 +454,9 @@
         applyLang(state.lang);
 
         if (isAdminPage) {
-            initAdmin();
+            loadAllCategories().then(() => initAdmin());
         } else {
-            initPublic();
+            loadAllCategories().then(() => initPublic());
         }
     });
 
@@ -601,13 +603,36 @@
             if (state.selectedCategory === 'all') {
                 label.textContent = isAr ? 'جميع الفئات' : 'All Categories';
             } else {
-                const lb = CATEGORY_LABELS[state.selectedCategory];
-                label.textContent = lb ? (isAr ? lb.ar : lb.en) : state.selectedCategory;
+                label.textContent = getCatLabel(state.selectedCategory);
             }
 
             dropdown.classList.remove('open');
             renderProjects(filterProjects());
         });
+    }
+
+    async function loadAllCategories() {
+        try {
+            const res = await fetch('/api/categories');
+            state.categories = await res.json();
+            state.catMap = {};
+            for (const c of state.categories) {
+                state.catMap[c.key] = c;
+            }
+        } catch (err) {
+            console.error('Failed to load categories:', err);
+        }
+    }
+
+    function getCatLabel(key) {
+        const c = state.catMap[key];
+        if (!c) return key;
+        return state.lang === 'ar' ? (c.label_ar || c.label_en) : c.label_en;
+    }
+
+    function getCatIcon(key) {
+        const c = state.catMap[key];
+        return c ? c.icon : 'fa-solid fa-shapes';
     }
 
     async function populateCategoryDropdown() {
@@ -617,21 +642,18 @@
         const isAr = state.lang === 'ar';
 
         try {
-            const res = await fetch('/api/categories');
-            const cats = await res.json();  // e.g. ['ai','web']
+            const res = await fetch('/api/categories/active');
+            const cats = await res.json();
 
-            // Build HTML — always keep "All" at top
             let html = `<div class="custom-dropdown__item ${state.selectedCategory === 'all' ? 'active' : ''}" data-value="all">
                 <i class="fa-solid fa-border-all"></i>
                 <span>${isAr ? 'جميع الفئات' : 'All Categories'}</span>
             </div>`;
 
             for (const cat of cats) {
-                const icon = CATEGORY_ICONS[cat] || 'fa-solid fa-folder';
-                const lb = CATEGORY_LABELS[cat];
-                const label = lb ? (isAr ? lb.ar : lb.en) : cat;
-                html += `<div class="custom-dropdown__item ${state.selectedCategory === cat ? 'active' : ''}" data-value="${cat}">
-                    <i class="${icon}"></i>
+                const label = isAr ? (cat.label_ar || cat.label_en) : cat.label_en;
+                html += `<div class="custom-dropdown__item ${state.selectedCategory === cat.key ? 'active' : ''}" data-value="${cat.key}">
+                    <i class="${cat.icon}"></i>
                     <span>${label}</span>
                 </div>`;
             }
@@ -704,11 +726,10 @@
         grid.innerHTML = projects.map(p => {
             const name = isAr && p.name_ar ? p.name_ar : p.name_en;
             const desc = isAr && p.description_ar ? p.description_ar : p.description_en;
-            const lb = CATEGORY_LABELS[p.category];
-            const catLabel = lb ? (isAr ? lb.ar : lb.en) : p.category;
+            const catLabel = getCatLabel(p.category);
             const dateStr = p.created_at ? new Date(p.created_at).toLocaleDateString(isAr ? 'ar' : 'en', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 
-            const fallbackIcon = p.project_icon || CATEGORY_ICONS[p.category] || 'fa-solid fa-shapes';
+            const fallbackIcon = p.project_icon || getCatIcon(p.category);
             const imageHtml = p.image
                 ? `<img src="/static/${p.image}" alt="${name}" class="project-card__image" loading="lazy">`
                 : `<div class="project-card__icon-display"><i class="${fallbackIcon}"></i></div>`;
@@ -933,6 +954,7 @@
         initProjectForm();
         initIconPicker();
         populateCategorySuggestions();
+        initCategoryManagement();
         initDeleteModal();
 
         // Check if already logged in
@@ -1003,8 +1025,7 @@
 
         tbody.innerHTML = state.projects.map(p => {
             const name = isAr && p.name_ar ? p.name_ar : p.name_en;
-            const lb = CATEGORY_LABELS[p.category];
-            const catLabel = lb ? (isAr ? lb.ar : lb.en) : p.category;
+            const catLabel = getCatLabel(p.category);
             const statusLabel = p.is_private ? (isAr ? 'خاص' : 'Private') : (isAr ? 'عام' : 'Public');
             const statusClass = p.is_private ? 'private' : 'public';
             const dateStr = p.created_at ? new Date(p.created_at).toLocaleDateString(isAr ? 'ar' : 'en', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
@@ -1127,22 +1148,12 @@
         const dropdown = document.getElementById('categoryDropdown');
         if (!input || !dropdown) return;
 
-        const isAr = state.lang === 'ar';
-
-        function buildItems() {
-            return Object.entries(CATEGORY_LABELS).map(([key, labels]) => ({
-                key,
-                label: isAr ? labels.ar : labels.en,
-                icon: CATEGORY_ICONS[key] || 'fa-solid fa-shapes'
-            }));
-        }
-
         function renderDropdown(filter) {
-            const items = buildItems();
+            const isAr = state.lang === 'ar';
             const q = (filter || '').toLowerCase();
             const filtered = q
-                ? items.filter(it => it.key.includes(q) || it.label.toLowerCase().includes(q))
-                : items;
+                ? state.categories.filter(c => c.key.includes(q) || c.label_en.toLowerCase().includes(q) || c.label_ar.includes(q))
+                : state.categories;
 
             if (!filtered.length) {
                 dropdown.innerHTML = '';
@@ -1150,41 +1161,174 @@
                 return;
             }
 
-            dropdown.innerHTML = filtered.map(it =>
-                `<div class="category-dropdown__item" data-value="${it.key}">
-                    <i class="${it.icon}"></i>
-                    ${it.label}
-                    <span>${it.key}</span>
-                </div>`
-            ).join('');
+            dropdown.innerHTML = filtered.map(c => {
+                const label = isAr ? (c.label_ar || c.label_en) : c.label_en;
+                return `<div class="category-dropdown__item" data-value="${c.key}" data-icon="${c.icon}">
+                    <i class="${c.icon}"></i>
+                    ${label}
+                    <span>${c.key}</span>
+                </div>`;
+            }).join('');
             dropdown.classList.add('active');
         }
 
-        // Show on focus
-        input.addEventListener('focus', () => renderDropdown(input.value));
+        function autoSetIcon(catKey) {
+            const cat = state.catMap[catKey];
+            if (!cat) return;
+            const iconInput = document.getElementById('projectIconValue');
+            const preview = document.getElementById('projectIconPreview');
+            if (iconInput && !iconInput.value) {
+                iconInput.value = cat.icon;
+                if (preview) {
+                    preview.className = cat.icon;
+                    preview.nextElementSibling.textContent = cat.icon.split(' ').pop().replace('fa-', '');
+                }
+            }
+        }
 
-        // Filter on input
+        input.addEventListener('focus', () => renderDropdown(input.value));
         input.addEventListener('input', () => renderDropdown(input.value));
 
-        // Select item
         dropdown.addEventListener('mousedown', (e) => {
-            e.preventDefault(); // prevent blur
+            e.preventDefault();
             const item = e.target.closest('.category-dropdown__item');
             if (item) {
                 input.value = item.dataset.value;
                 dropdown.classList.remove('active');
+                autoSetIcon(item.dataset.value);
             }
         });
 
-        // Hide on blur
         input.addEventListener('blur', () => {
             setTimeout(() => dropdown.classList.remove('active'), 150);
         });
 
-        // Close on Escape
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') dropdown.classList.remove('active');
         });
+    }
+
+    // ─── Category Management ────────────────────────────────
+
+    function initCategoryManagement() {
+        const toggleBtn = document.getElementById('manageCategoriesBtn');
+        const section = document.getElementById('categoriesSection');
+        const addBtn = document.getElementById('addCategoryBtn');
+        const addForm = document.getElementById('addCategoryForm');
+        const cancelBtn = document.getElementById('cancelCategoryBtn');
+        const saveBtn = document.getElementById('saveCategoryBtn');
+        const grid = document.getElementById('categoriesGrid');
+
+        if (!toggleBtn || !section) return;
+
+        // Toggle section
+        toggleBtn.addEventListener('click', () => {
+            const visible = section.style.display !== 'none';
+            section.style.display = visible ? 'none' : 'block';
+            if (!visible) renderCategoriesGrid();
+        });
+
+        // Show/hide add form
+        if (addBtn) addBtn.addEventListener('click', () => {
+            addForm.style.display = addForm.style.display === 'none' ? 'block' : 'none';
+            if (addForm.style.display === 'block') {
+                document.getElementById('newCatKey').value = '';
+                document.getElementById('newCatLabelEn').value = '';
+                document.getElementById('newCatLabelAr').value = '';
+                document.getElementById('newCatIconValue').value = 'fa-solid fa-shapes';
+                document.getElementById('newCatIconPreview').className = 'fa-solid fa-shapes';
+            }
+        });
+
+        if (cancelBtn) cancelBtn.addEventListener('click', () => {
+            addForm.style.display = 'none';
+        });
+
+        // Icon picker for new category
+        const iconTrigger = document.getElementById('newCatIconTrigger');
+        if (iconTrigger) {
+            iconTrigger.addEventListener('click', () => {
+                const currentIcon = document.getElementById('newCatIconValue').value;
+                iconPickerCallback = (iconClass) => {
+                    document.getElementById('newCatIconValue').value = iconClass;
+                    document.getElementById('newCatIconPreview').className = iconClass;
+                };
+                openIconPickerModal(currentIcon);
+            });
+        }
+
+        // Save new category
+        if (saveBtn) saveBtn.addEventListener('click', async () => {
+            const key = document.getElementById('newCatKey').value.trim().toLowerCase().replace(/\s+/g, '');
+            const labelEn = document.getElementById('newCatLabelEn').value.trim();
+            const labelAr = document.getElementById('newCatLabelAr').value.trim();
+            const icon = document.getElementById('newCatIconValue').value;
+
+            if (!key || !labelEn) {
+                alert(state.lang === 'ar' ? 'المفتاح والاسم بالإنجليزية مطلوبان' : 'Key and English label are required');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/categories', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, label_en: labelEn, label_ar: labelAr || labelEn, icon })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    alert(data.error || 'Error creating category');
+                    return;
+                }
+                addForm.style.display = 'none';
+                await loadAllCategories();
+                renderCategoriesGrid();
+            } catch (err) {
+                alert('Failed to create category');
+            }
+        });
+
+        // Delete category (delegated)
+        if (grid) grid.addEventListener('click', async (e) => {
+            const delBtn = e.target.closest('.admin-cat-chip__delete');
+            if (!delBtn) return;
+            const key = delBtn.dataset.key;
+            const confirmMsg = state.lang === 'ar' ? `حذف الفئة "${key}"؟` : `Delete category "${key}"?`;
+            if (!confirm(confirmMsg)) return;
+
+            try {
+                await fetch(`/api/admin/categories/${key}`, { method: 'DELETE' });
+                await loadAllCategories();
+                renderCategoriesGrid();
+            } catch (err) {
+                alert('Failed to delete category');
+            }
+        });
+    }
+
+    function renderCategoriesGrid() {
+        const grid = document.getElementById('categoriesGrid');
+        if (!grid) return;
+
+        const isAr = state.lang === 'ar';
+
+        grid.innerHTML = state.categories.map(c => {
+            const label = isAr ? (c.label_ar || c.label_en) : c.label_en;
+            return `<div class="admin-cat-chip">
+                <i class="${c.icon} cat-icon"></i>
+                <div class="admin-cat-chip__info">
+                    <div class="admin-cat-chip__label">${label}</div>
+                    <div class="admin-cat-chip__key">${c.key}</div>
+                </div>
+                <button class="admin-cat-chip__delete" data-key="${c.key}" title="Delete">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>`;
+        }).join('');
+
+        if (!state.categories.length) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-muted);">No categories defined</div>';
+        }
     }
 
     // ─── Project Form (Add/Edit) ────────────────────────────

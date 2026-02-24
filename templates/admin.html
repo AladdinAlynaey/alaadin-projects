@@ -125,6 +125,47 @@
                 </svg>
                 <span data-en="Add Project" data-ar="إضافة مشروع">Add Project</span>
             </button>
+            <button class="admin-actions__secondary" id="manageCategoriesBtn">
+                <i class="fa-solid fa-tags"></i>
+                <span data-en="Manage Categories" data-ar="إدارة الفئات">Manage Categories</span>
+            </button>
+        </div>
+
+        <!-- Categories Management Section -->
+        <div class="admin-categories-section" id="categoriesSection" style="display:none;">
+            <div class="admin-categories-header">
+                <h3 data-en="Categories" data-ar="الفئات">Categories</h3>
+                <button class="btn btn--sm btn--accent" id="addCategoryBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    <span data-en="Add Category" data-ar="إضافة فئة">Add Category</span>
+                </button>
+            </div>
+
+            <!-- Add Category Form (hidden by default) -->
+            <div class="add-category-form" id="addCategoryForm" style="display:none;">
+                <div class="add-category-form__fields">
+                    <input type="text" id="newCatKey" placeholder="key (e.g. python)" autocomplete="off">
+                    <input type="text" id="newCatLabelEn" placeholder="English label" autocomplete="off">
+                    <input type="text" id="newCatLabelAr" placeholder="Arabic label" dir="rtl" autocomplete="off">
+                    <button type="button" class="icon-picker__trigger icon-picker__trigger--sm" id="newCatIconTrigger">
+                        <i class="fa-solid fa-shapes" id="newCatIconPreview"></i>
+                    </button>
+                    <input type="hidden" id="newCatIconValue" value="fa-solid fa-shapes">
+                </div>
+                <div class="add-category-form__actions">
+                    <button class="btn btn--sm btn--accent" id="saveCategoryBtn">
+                        <i class="fa-solid fa-check"></i>
+                        <span data-en="Save" data-ar="حفظ">Save</span>
+                    </button>
+                    <button class="btn btn--sm btn--ghost" id="cancelCategoryBtn">
+                        <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-categories-grid" id="categoriesGrid">
+                <!-- Categories populated by JS -->
+            </div>
         </div>
 
         <!-- Projects Table -->
@@ -202,10 +243,9 @@
                     <div class="form-group">
                         <label data-en="Category" data-ar="الفئة">Category</label>
                         <div class="category-input-wrap">
-                            <input type="text" id="projectCategory"
-                                data-placeholder-en="e.g. AI, Web, Data..."
-                                data-placeholder-ar="مثال: ذكاء اصطناعي، ويب..."
-                                placeholder="e.g. AI, Web, Data..." autocomplete="off">
+                            <input type="text" id="projectCategory" data-placeholder-en="e.g. AI, Web, Data..."
+                                data-placeholder-ar="مثال: ذكاء اصطناعي، ويب..." placeholder="e.g. AI, Web, Data..."
+                                autocomplete="off">
                             <div class="category-dropdown" id="categoryDropdown"></div>
                         </div>
                     </div>

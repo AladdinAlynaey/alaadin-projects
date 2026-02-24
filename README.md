@@ -4,7 +4,6 @@
 
 ### Transforming Ideas Into Intelligent Solutions — AI, Data & Beyond
 
-<img src="static/imgs/favicon.png" alt="Logo" width="80">
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com)
@@ -182,7 +181,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-**Built with ❤️ by [Alaadin Alynaey](https://github.com/AladdinAlynaey)**
+**Built by [Alaadin Alynaey](https://alaadin-alynaey.site)**
 
 ⭐ Star this repo if you find it useful!
 

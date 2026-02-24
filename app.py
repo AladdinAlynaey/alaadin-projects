@@ -23,6 +23,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'project-hub-secret-key-change-me'
 
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'projects.json')
+CATEGORIES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'categories.json')
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
 MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
@@ -54,6 +55,24 @@ def save_projects(projects):
         os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(projects, f, ensure_ascii=False, indent=2)
+
+
+def load_categories():
+    """Load categories from JSON file."""
+    with file_lock:
+        try:
+            with open(CATEGORIES_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+
+def save_categories(categories):
+    """Save categories to JSON file."""
+    with file_lock:
+        os.makedirs(os.path.dirname(CATEGORIES_FILE), exist_ok=True)
+        with open(CATEGORIES_FILE, 'w', encoding='utf-8') as f:
+            json.dump(categories, f, ensure_ascii=False, indent=2)
 
 
 def admin_required(f):
@@ -98,14 +117,86 @@ def get_projects():
 
 @app.route('/api/categories', methods=['GET'])
 def get_categories():
+    """Get all categories with full info (key, labels, icon)."""
+    categories = load_categories()
+    return jsonify(categories)
+
+
+@app.route('/api/categories/active', methods=['GET'])
+def get_active_categories():
     """Get categories that have at least one project."""
     projects = load_projects()
     is_admin = session.get('is_admin', False)
     if not is_admin:
         projects = [p for p in projects if not p.get('is_private', False)]
-    cats = list(set(p.get('category', 'other') for p in projects))
-    cats.sort()
-    return jsonify(cats)
+    used_keys = set(p.get('category', 'other') for p in projects)
+    categories = load_categories()
+    cat_map = {c['key']: c for c in categories}
+    result = []
+    for key in sorted(used_keys):
+        if key in cat_map:
+            result.append(cat_map[key])
+        else:
+            result.append({'key': key, 'label_en': key.title(), 'label_ar': key, 'icon': 'fa-solid fa-shapes'})
+    return jsonify(result)
+
+
+@app.route('/api/admin/categories', methods=['GET'])
+@admin_required
+def get_admin_categories():
+    """Get all categories (admin)."""
+    categories = load_categories()
+    return jsonify(categories)
+
+
+@app.route('/api/admin/categories', methods=['POST'])
+@admin_required
+def create_category():
+    """Create a new category."""
+    data = request.get_json()
+    key = data.get('key', '').strip().lower().replace(' ', '')
+    label_en = data.get('label_en', '').strip()
+    label_ar = data.get('label_ar', '').strip()
+    icon = data.get('icon', 'fa-solid fa-shapes').strip()
+
+    if not key or not label_en:
+        return jsonify({'error': 'Key and English label are required'}), 400
+
+    categories = load_categories()
+    if any(c['key'] == key for c in categories):
+        return jsonify({'error': 'Category key already exists'}), 400
+
+    cat = {'key': key, 'label_en': label_en, 'label_ar': label_ar or label_en, 'icon': icon}
+    categories.append(cat)
+    save_categories(categories)
+    return jsonify(cat), 201
+
+
+@app.route('/api/admin/categories/<cat_key>', methods=['PUT'])
+@admin_required
+def update_category(cat_key):
+    """Update an existing category."""
+    data = request.get_json()
+    categories = load_categories()
+    cat = next((c for c in categories if c['key'] == cat_key), None)
+    if not cat:
+        return jsonify({'error': 'Category not found'}), 404
+
+    cat['label_en'] = data.get('label_en', cat['label_en']).strip()
+    cat['label_ar'] = data.get('label_ar', cat['label_ar']).strip()
+    cat['icon'] = data.get('icon', cat['icon']).strip()
+    save_categories(categories)
+    return jsonify(cat)
+
+
+@app.route('/api/admin/categories/<cat_key>', methods=['DELETE'])
+@admin_required
+def delete_category(cat_key):
+    """Delete a category."""
+    categories = load_categories()
+    categories = [c for c in categories if c['key'] != cat_key]
+    save_categories(categories)
+    return jsonify({'success': True})
 
 
 @app.route('/api/projects/<project_id>', methods=['GET'])
