@@ -1436,17 +1436,25 @@ body {
     cursor: pointer;
     transition: all 0.3s;
 }
+
 .admin-header__settings:hover {
     background: var(--bg-glass-hover);
     border-color: var(--accent-1);
     color: var(--accent-1);
 }
+
 .admin-header__settings:hover i {
     animation: spin-gear 0.8s ease;
 }
+
 @keyframes spin-gear {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(120deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(120deg);
+    }
 }
 
 /* ─── Admin Stats ─────────────────────────────────────────── */
@@ -1611,6 +1619,7 @@ body {
 .admin-table tbody tr {
     transition: background 0.2s ease;
 }
+
 .admin-table tr:hover td {
     background: var(--bg-glass-hover);
 }
@@ -1973,6 +1982,56 @@ body {
 
 [dir="rtl"] .form-actions {
     justify-content: flex-start;
+}
+
+/* ─── Upload Loading Overlay ─────────────────────────────── */
+.upload-loading-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-loading-overlay.active {
+    display: flex;
+}
+
+.upload-loading-content {
+    text-align: center;
+}
+
+.upload-loading-content p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 16px 0 6px;
+}
+
+.upload-loading-content span {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.upload-spinner {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--accent-1);
+    animation: upload-spin 0.8s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes upload-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */

@@ -1,242 +1,242 @@
 [
-    {
-        "key": "web",
-        "label_en": "Web",
-        "label_ar": "ويب",
-        "icon": "fa-solid fa-globe"
-    },
-    {
-        "key": "mobile",
-        "label_en": "Mobile",
-        "label_ar": "جوال",
-        "icon": "fa-solid fa-mobile-screen"
-    },
-    {
-        "key": "desktop",
-        "label_en": "Desktop",
-        "label_ar": "سطح المكتب",
-        "icon": "fa-solid fa-desktop"
-    },
-    {
-        "key": "ai",
-        "label_en": "AI / ML",
-        "label_ar": "ذكاء اصطناعي",
-        "icon": "fa-solid fa-brain"
-    },
-    {
-        "key": "ml",
-        "label_en": "Machine Learning",
-        "label_ar": "تعلم الآلة",
-        "icon": "fa-solid fa-robot"
-    },
-    {
-        "key": "deeplearning",
-        "label_en": "Deep Learning",
-        "label_ar": "تعلم عميق",
-        "icon": "fa-solid fa-network-wired"
-    },
-    {
-        "key": "nlp",
-        "label_en": "NLP",
-        "label_ar": "معالجة اللغة",
-        "icon": "fa-solid fa-language"
-    },
-    {
-        "key": "cv",
-        "label_en": "Computer Vision",
-        "label_ar": "رؤية حاسوبية",
-        "icon": "fa-solid fa-eye"
-    },
-    {
-        "key": "rag",
-        "label_en": "RAG",
-        "label_ar": "توليد معزز",
-        "icon": "fa-solid fa-book-open"
-    },
-    {
-        "key": "llm",
-        "label_en": "LLM",
-        "label_ar": "نماذج لغوية",
-        "icon": "fa-solid fa-comments"
-    },
-    {
-        "key": "chatbot",
-        "label_en": "Chatbot",
-        "label_ar": "روبوت محادثة",
-        "icon": "fa-solid fa-message"
-    },
-    {
-        "key": "data",
-        "label_en": "Data Engineering",
-        "label_ar": "هندسة بيانات",
-        "icon": "fa-solid fa-database"
-    },
-    {
-        "key": "datascience",
-        "label_en": "Data Science",
-        "label_ar": "علوم بيانات",
-        "icon": "fa-solid fa-chart-line"
-    },
-    {
-        "key": "analytics",
-        "label_en": "Analytics",
-        "label_ar": "تحليلات",
-        "icon": "fa-solid fa-chart-pie"
-    },
-    {
-        "key": "etl",
-        "label_en": "ETL Pipeline",
-        "label_ar": "خط بيانات",
-        "icon": "fa-solid fa-arrows-spin"
-    },
-    {
-        "key": "scraping",
-        "label_en": "Web Scraping",
-        "label_ar": "استخراج بيانات",
-        "icon": "fa-solid fa-spider"
-    },
-    {
-        "key": "automation",
-        "label_en": "Automation",
-        "label_ar": "أتمتة",
-        "icon": "fa-solid fa-gears"
-    },
-    {
-        "key": "cybersecurity",
-        "label_en": "Cybersecurity",
-        "label_ar": "أمن سيبراني",
-        "icon": "fa-solid fa-shield-halved"
-    },
-    {
-        "key": "api",
-        "label_en": "API",
-        "label_ar": "واجهة برمجة",
-        "icon": "fa-solid fa-plug"
-    },
-    {
-        "key": "cloud",
-        "label_en": "Cloud",
-        "label_ar": "سحابة",
-        "icon": "fa-solid fa-cloud"
-    },
-    {
-        "key": "devops",
-        "label_en": "DevOps",
-        "label_ar": "ديف أوبس",
-        "icon": "fa-solid fa-server"
-    },
-    {
-        "key": "iot",
-        "label_en": "IoT",
-        "label_ar": "إنترنت الأشياء",
-        "icon": "fa-solid fa-microchip"
-    },
-    {
-        "key": "blockchain",
-        "label_en": "Blockchain",
-        "label_ar": "بلوكتشين",
-        "icon": "fa-solid fa-link"
-    },
-    {
-        "key": "game",
-        "label_en": "Games",
-        "label_ar": "ألعاب",
-        "icon": "fa-solid fa-gamepad"
-    },
-    {
-        "key": "education",
-        "label_en": "Education",
-        "label_ar": "تعليم",
-        "icon": "fa-solid fa-graduation-cap"
-    },
-    {
-        "key": "math",
-        "label_en": "Mathematics",
-        "label_ar": "رياضيات",
-        "icon": "fa-solid fa-square-root-variable"
-    },
-    {
-        "key": "podcast",
-        "label_en": "Podcast",
-        "label_ar": "بودكاست",
-        "icon": "fa-solid fa-podcast"
-    },
-    {
-        "key": "media",
-        "label_en": "Media",
-        "label_ar": "وسائط",
-        "icon": "fa-solid fa-photo-film"
-    },
-    {
-        "key": "video",
-        "label_en": "Video",
-        "label_ar": "فيديو",
-        "icon": "fa-solid fa-video"
-    },
-    {
-        "key": "audio",
-        "label_en": "Audio",
-        "label_ar": "صوتيات",
-        "icon": "fa-solid fa-headphones"
-    },
-    {
-        "key": "tool",
-        "label_en": "Tools",
-        "label_ar": "أدوات",
-        "icon": "fa-solid fa-wrench"
-    },
-    {
-        "key": "utility",
-        "label_en": "Utility",
-        "label_ar": "خدمات",
-        "icon": "fa-solid fa-toolbox"
-    },
-    {
-        "key": "dashboard",
-        "label_en": "Dashboard",
-        "label_ar": "لوحة تحكم",
-        "icon": "fa-solid fa-gauge-high"
-    },
-    {
-        "key": "ecommerce",
-        "label_en": "E-Commerce",
-        "label_ar": "تجارة إلكترونية",
-        "icon": "fa-solid fa-cart-shopping"
-    },
-    {
-        "key": "finance",
-        "label_en": "Finance",
-        "label_ar": "مالية",
-        "icon": "fa-solid fa-coins"
-    },
-    {
-        "key": "health",
-        "label_en": "Health",
-        "label_ar": "صحة",
-        "icon": "fa-solid fa-heart-pulse"
-    },
-    {
-        "key": "social",
-        "label_en": "Social",
-        "label_ar": "اجتماعي",
-        "icon": "fa-solid fa-users"
-    },
-    {
-        "key": "productivity",
-        "label_en": "Productivity",
-        "label_ar": "إنتاجية",
-        "icon": "fa-solid fa-bolt"
-    },
-    {
-        "key": "extension",
-        "label_en": "Extension",
-        "label_ar": "إضافة",
-        "icon": "fa-solid fa-puzzle-piece"
-    },
-    {
-        "key": "other",
-        "label_en": "Other",
-        "label_ar": "أخرى",
-        "icon": "fa-solid fa-shapes"
-    }
+  {
+    "key": "web",
+    "label_en": "Web",
+    "label_ar": "ويب",
+    "icon": "fa-solid fa-globe"
+  },
+  {
+    "key": "mobile",
+    "label_en": "Mobile",
+    "label_ar": "جوال",
+    "icon": "fa-solid fa-mobile-screen"
+  },
+  {
+    "key": "desktop",
+    "label_en": "Desktop",
+    "label_ar": "سطح المكتب",
+    "icon": "fa-solid fa-desktop"
+  },
+  {
+    "key": "ai",
+    "label_en": "AI / ML",
+    "label_ar": "ذكاء اصطناعي",
+    "icon": "fa-solid fa-brain"
+  },
+  {
+    "key": "ml",
+    "label_en": "Machine Learning",
+    "label_ar": "تعلم الآلة",
+    "icon": "fa-solid fa-robot"
+  },
+  {
+    "key": "deeplearning",
+    "label_en": "Deep Learning",
+    "label_ar": "تعلم عميق",
+    "icon": "fa-solid fa-network-wired"
+  },
+  {
+    "key": "nlp",
+    "label_en": "NLP",
+    "label_ar": "معالجة اللغة",
+    "icon": "fa-solid fa-language"
+  },
+  {
+    "key": "cv",
+    "label_en": "Computer Vision",
+    "label_ar": "رؤية حاسوبية",
+    "icon": "fa-solid fa-eye"
+  },
+  {
+    "key": "rag",
+    "label_en": "RAG",
+    "label_ar": "توليد معزز",
+    "icon": "fa-solid fa-book-open"
+  },
+  {
+    "key": "llm",
+    "label_en": "LLM",
+    "label_ar": "نماذج لغوية",
+    "icon": "fa-solid fa-comments"
+  },
+  {
+    "key": "chatbot",
+    "label_en": "Chatbot",
+    "label_ar": "روبوت محادثة",
+    "icon": "fa-solid fa-message"
+  },
+  {
+    "key": "data",
+    "label_en": "Data Engineering",
+    "label_ar": "هندسة بيانات",
+    "icon": "fa-solid fa-database"
+  },
+  {
+    "key": "datascience",
+    "label_en": "Data Science",
+    "label_ar": "علوم بيانات",
+    "icon": "fa-solid fa-chart-line"
+  },
+  {
+    "key": "analytics",
+    "label_en": "Analytics",
+    "label_ar": "تحليلات",
+    "icon": "fa-solid fa-chart-pie"
+  },
+  {
+    "key": "etl",
+    "label_en": "ETL Pipeline",
+    "label_ar": "خط بيانات",
+    "icon": "fa-solid fa-arrows-spin"
+  },
+  {
+    "key": "scraping",
+    "label_en": "Web Scraping",
+    "label_ar": "استخراج بيانات",
+    "icon": "fa-solid fa-spider"
+  },
+  {
+    "key": "automation",
+    "label_en": "Automation",
+    "label_ar": "أتمتة",
+    "icon": "fa-solid fa-gears"
+  },
+  {
+    "key": "cybersecurity",
+    "label_en": "Cybersecurity",
+    "label_ar": "أمن سيبراني",
+    "icon": "fa-solid fa-shield-halved"
+  },
+  {
+    "key": "api",
+    "label_en": "API",
+    "label_ar": "واجهة برمجة",
+    "icon": "fa-solid fa-plug"
+  },
+  {
+    "key": "cloud",
+    "label_en": "Cloud",
+    "label_ar": "سحابة",
+    "icon": "fa-solid fa-cloud"
+  },
+  {
+    "key": "devops",
+    "label_en": "DevOps",
+    "label_ar": "ديف أوبس",
+    "icon": "fa-solid fa-server"
+  },
+  {
+    "key": "iot",
+    "label_en": "IoT",
+    "label_ar": "إنترنت الأشياء",
+    "icon": "fa-solid fa-microchip"
+  },
+  {
+    "key": "game",
+    "label_en": "Games",
+    "label_ar": "ألعاب",
+    "icon": "fa-solid fa-gamepad"
+  },
+  {
+    "key": "education",
+    "label_en": "Education",
+    "label_ar": "تعليم",
+    "icon": "fa-solid fa-graduation-cap"
+  },
+  {
+    "key": "math",
+    "label_en": "Mathematics",
+    "label_ar": "رياضيات",
+    "icon": "fa-solid fa-square-root-variable"
+  },
+  {
+    "key": "podcast",
+    "label_en": "Podcast",
+    "label_ar": "بودكاست",
+    "icon": "fa-solid fa-podcast"
+  },
+  {
+    "key": "media",
+    "label_en": "Media",
+    "label_ar": "وسائط",
+    "icon": "fa-solid fa-photo-film"
+  },
+  {
+    "key": "video",
+    "label_en": "Video",
+    "label_ar": "فيديو",
+    "icon": "fa-solid fa-video"
+  },
+  {
+    "key": "audio",
+    "label_en": "Audio",
+    "label_ar": "صوتيات",
+    "icon": "fa-solid fa-headphones"
+  },
+  {
+    "key": "tool",
+    "label_en": "Tools",
+    "label_ar": "أدوات",
+    "icon": "fa-solid fa-wrench"
+  },
+  {
+    "key": "utility",
+    "label_en": "Utility",
+    "label_ar": "خدمات",
+    "icon": "fa-solid fa-toolbox"
+  },
+  {
+    "key": "dashboard",
+    "label_en": "Dashboard",
+    "label_ar": "لوحة تحكم",
+    "icon": "fa-solid fa-gauge-high"
+  },
+  {
+    "key": "ecommerce",
+    "label_en": "E-Commerce",
+    "label_ar": "تجارة إلكترونية",
+    "icon": "fa-solid fa-cart-shopping"
+  },
+  {
+    "key": "finance",
+    "label_en": "Finance",
+    "label_ar": "مالية",
+    "icon": "fa-solid fa-coins"
+  },
+  {
+    "key": "social",
+    "label_en": "Social",
+    "label_ar": "اجتماعي",
+    "icon": "fa-solid fa-users"
+  },
+  {
+    "key": "productivity",
+    "label_en": "Productivity",
+    "label_ar": "إنتاجية",
+    "icon": "fa-solid fa-bolt"
+  },
+  {
+    "key": "extension",
+    "label_en": "Extension",
+    "label_ar": "إضافة",
+    "icon": "fa-solid fa-puzzle-piece"
+  },
+  {
+    "key": "other",
+    "label_en": "Other",
+    "label_ar": "أخرى",
+    "icon": "fa-solid fa-shapes"
+  },
+  {
+    "key": "projectmanager",
+    "label_en": "projectmanager",
+    "label_ar": "ادارة مشاريع",
+    "icon": "fa-solid fa-chart-pie"
+  },
+  {
+    "key": "aiagent",
+    "label_en": "AI agent",
+    "label_ar": "وكيل ذكاء اصطناعي",
+    "icon": "fa-solid fa-robot"
+  }
 ]

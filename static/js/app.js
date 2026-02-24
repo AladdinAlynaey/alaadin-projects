@@ -1456,6 +1456,29 @@
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
+
+                // Show loading overlay
+                const submitBtn = document.getElementById('projectFormSubmit');
+                const originalBtnText = submitBtn ? submitBtn.textContent : '';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + (state.lang === 'ar' ? 'جاري الرفع...' : 'Uploading...');
+                }
+
+                let loadingOverlay = modal.querySelector('.upload-loading-overlay');
+                if (!loadingOverlay) {
+                    loadingOverlay = document.createElement('div');
+                    loadingOverlay.className = 'upload-loading-overlay';
+                    loadingOverlay.innerHTML = `
+                        <div class="upload-loading-content">
+                            <div class="upload-spinner"></div>
+                            <p>${state.lang === 'ar' ? 'جاري رفع المشروع...' : 'Uploading project...'}</p>
+                            <span>${state.lang === 'ar' ? 'قد يستغرق بعض الوقت بسبب حجم الصورة' : 'This may take a moment due to image size'}</span>
+                        </div>`;
+                    modal.querySelector('.modal').appendChild(loadingOverlay);
+                }
+                loadingOverlay.classList.add('active');
+
                 const formData = new FormData();
 
                 formData.append('name_en', document.getElementById('nameEn').value);
@@ -1481,6 +1504,9 @@
 
                 try {
                     const res = await fetch(url, { method, body: formData });
+                    loadingOverlay.classList.remove('active');
+                    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+
                     if (res.ok) {
                         closeModal(modal);
                         loadAdminProjects();
@@ -1495,6 +1521,8 @@
                         showToast(data.error || 'Error saving project', 'error');
                     }
                 } catch (err) {
+                    loadingOverlay.classList.remove('active');
+                    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
                     showToast('Network error', 'error');
                 }
             });
