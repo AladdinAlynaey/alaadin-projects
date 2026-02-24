@@ -201,10 +201,13 @@
                     <!-- Category -->
                     <div class="form-group">
                         <label data-en="Category" data-ar="الفئة">Category</label>
-                        <input type="text" id="projectCategory" list="categorySuggestions"
-                            data-placeholder-en="e.g. AI, Web, Data..." data-placeholder-ar="مثال: ذكاء اصطناعي، ويب..."
-                            placeholder="e.g. AI, Web, Data..." autocomplete="off">
-                        <datalist id="categorySuggestions"></datalist>
+                        <div class="category-input-wrap">
+                            <input type="text" id="projectCategory"
+                                data-placeholder-en="e.g. AI, Web, Data..."
+                                data-placeholder-ar="مثال: ذكاء اصطناعي، ويب..."
+                                placeholder="e.g. AI, Web, Data..." autocomplete="off">
+                            <div class="category-dropdown" id="categoryDropdown"></div>
+                        </div>
                     </div>
                     <!-- Project Icon -->
                     <div class="form-group">

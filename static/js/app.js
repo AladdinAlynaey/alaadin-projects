@@ -1123,16 +1123,68 @@
     }
 
     function populateCategorySuggestions() {
-        const datalist = document.getElementById('categorySuggestions');
-        if (!datalist) return;
+        const input = document.getElementById('projectCategory');
+        const dropdown = document.getElementById('categoryDropdown');
+        if (!input || !dropdown) return;
 
-        // Populate from CATEGORY_LABELS
         const isAr = state.lang === 'ar';
-        const options = Object.entries(CATEGORY_LABELS).map(([key, labels]) => {
-            const label = isAr ? labels.ar : labels.en;
-            return `<option value="${key}">${label}</option>`;
+
+        function buildItems() {
+            return Object.entries(CATEGORY_LABELS).map(([key, labels]) => ({
+                key,
+                label: isAr ? labels.ar : labels.en,
+                icon: CATEGORY_ICONS[key] || 'fa-solid fa-shapes'
+            }));
+        }
+
+        function renderDropdown(filter) {
+            const items = buildItems();
+            const q = (filter || '').toLowerCase();
+            const filtered = q
+                ? items.filter(it => it.key.includes(q) || it.label.toLowerCase().includes(q))
+                : items;
+
+            if (!filtered.length) {
+                dropdown.innerHTML = '';
+                dropdown.classList.remove('active');
+                return;
+            }
+
+            dropdown.innerHTML = filtered.map(it =>
+                `<div class="category-dropdown__item" data-value="${it.key}">
+                    <i class="${it.icon}"></i>
+                    ${it.label}
+                    <span>${it.key}</span>
+                </div>`
+            ).join('');
+            dropdown.classList.add('active');
+        }
+
+        // Show on focus
+        input.addEventListener('focus', () => renderDropdown(input.value));
+
+        // Filter on input
+        input.addEventListener('input', () => renderDropdown(input.value));
+
+        // Select item
+        dropdown.addEventListener('mousedown', (e) => {
+            e.preventDefault(); // prevent blur
+            const item = e.target.closest('.category-dropdown__item');
+            if (item) {
+                input.value = item.dataset.value;
+                dropdown.classList.remove('active');
+            }
         });
-        datalist.innerHTML = options.join('');
+
+        // Hide on blur
+        input.addEventListener('blur', () => {
+            setTimeout(() => dropdown.classList.remove('active'), 150);
+        });
+
+        // Close on Escape
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') dropdown.classList.remove('active');
+        });
     }
 
     // ─── Project Form (Add/Edit) ────────────────────────────

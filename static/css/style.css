@@ -2065,6 +2065,72 @@ body {
     opacity: 0.7;
 }
 
+/* ─── Custom Category Dropdown ────────────────────────────── */
+.category-input-wrap {
+    position: relative;
+}
+
+.category-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    max-height: 220px;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.category-dropdown.active {
+    display: block;
+}
+
+.category-dropdown::-webkit-scrollbar {
+    width: 5px;
+}
+
+.category-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.category-dropdown::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.category-dropdown__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.category-dropdown__item:hover {
+    background: var(--bg-glass-hover);
+}
+
+.category-dropdown__item i {
+    width: 20px;
+    text-align: center;
+    color: var(--accent-1);
+    font-size: 0.95rem;
+}
+
+.category-dropdown__item span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
 /* ─── Icon Picker ─────────────────────────────────────────── */
 .icon-picker__trigger {
     display: flex;
